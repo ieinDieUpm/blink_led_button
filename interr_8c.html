@@ -92,9 +92,7 @@ $(document).ready(function(){initNavTree('interr_8c.html',''); initResizable(); 
 <p>Interrupt service routines for the STM32F4 platform.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="port__system_8h_source.html">port_system.h</a>&quot;</code><br />
-</div>
-<p><a href="interr_8c_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ab5e09814056d617c521549e542639b7e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interr_8c.html#ab5e09814056d617c521549e542639b7e">SysTick_Handler</a> (void)</td></tr>
@@ -105,8 +103,6 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Interrupt service routines for the STM32F4 platform. </p>
 <dl class="section author"><dt>Author</dt><dd>Román Cárdenas (<a href="#" onclick="location.href='mai'+'lto:'+'r.c'+'ar'+'den'+'as'+'@up'+'m.'+'es'; return false;">r.car<span style="display: none;">.nosp@m.</span>dena<span style="display: none;">.nosp@m.</span>s@upm<span style="display: none;">.nosp@m.</span>.es</a>) </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2024-01-01 </dd></dl>
-
-<p class="definition">Definition in file <a class="el" href="interr_8c_source.html">interr.c</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="ab5e09814056d617c521549e542639b7e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab5e09814056d617c521549e542639b7e">&#9670;&nbsp;</a></span>SysTick_Handler()</h2>
@@ -127,8 +123,6 @@ Functions</h2></td></tr>
 <p>Interrupt service routine for the System tick timer (SysTick). </p>
 <dl class="section note"><dt>Note</dt><dd>This ISR is called when the SysTick timer generates an interrupt. The program flow jumps to this ISR and increments the tick counter by one millisecond.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd><b>The variable <code>msTicks</code> must be declared volatile!</b> Just because it is modified by a call of an ISR, in order to avoid <a href="https://en.wikipedia.org/wiki/Race_condition"><em>race conditions</em></a> . <b>Added to the definition</b> after <em>static</em>. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="interr_8c_source.html#l00025">25</a> of file <a class="el" href="interr_8c_source.html">interr.c</a>.</p>
 
 </div>
 </div>
