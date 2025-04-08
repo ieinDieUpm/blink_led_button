@@ -23,15 +23,9 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "Blink LED-Button", "index.html", [
-    [ "Blink LED with Button push", "index.html", [
-      [ "Authors", "index.html#autotoc_md1", null ],
-      [ "Version 1", "index.html#autotoc_md2", [
-        [ "Subsection 1", "index.html#autotoc_md3", null ]
-      ] ],
-      [ "Version 2", "index.html#autotoc_md4", null ],
-      [ "Version N", "index.html#autotoc_md5", null ],
-      [ "Information on project_template", "index.html#autotoc_md6", null ],
-      [ "File Organization", "index.html#autotoc_md7", null ]
+    [ "Blink LED con espera activa de pulsación de botón", "index.html", [
+      [ "Ejercicio: parpadeo con botón", "index.html#autotoc_md1", null ],
+      [ "References", "index.html#autotoc_md2", null ]
     ] ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],
