@@ -1,126 +1,33 @@
-# Blink LED with Button push
+# Blink LED con espera activa de pulsación de botón
 
-This project makes the LED LD2 of the Nucleo-STM32F446RE at a frequency of `c` Hz. The frequency is controlled by the push of the user button B1. Each time the button is pushed, the frequency (`c`) increases by 1. The LED is off when `c` equals 0.
+Este proyecto hace parpadear el LED LD2 de la Nucleo-STM32F446RE a una frecuencia de `c` Hz. La frecuencia es controlada por el pulsado del botón de usuario B1. Cada vez que se pulsa el botón, la frecuencia (`c`) aumenta en 1. **El LED está apagado cuando `c` es igual a 0**. La lectura del botón se realiza por espera activa o *polling*.
 
-This project bases on the [MatrixMCU toolkit](https://github.com/sdg2DieUpm/MatrixMCU).
+Cuando se pulse el botón, el LED parpadea a la frecuencia indicada por el contador `c`. El tiempo de encendido y apagado del LED es igual a 1/(2*c) segundos. Por ejemplo, si `c` es 1, el LED parpadea a 1 Hz (500 ms encendido y 500 ms apagado). Si `c` es 2, el LED parpadea a 2 Hz (250 ms encendido y 250 ms apagado), etc.
 
-This README serves as a template for the documentation of your project. You can use it as a guide to write your own documentation. At the end of the document you will find some information on the `project_template` repository.
+¿A qué frecuencia deja de notar el parpadeo del LED?
 
-Watch this video to better understand how to document your code with **Doxygen**:
+## Ejercicio: parpadeo con botón
 
-[![Link to Doxygen tutorial](docs/assets/imgs/doxygen_thumb.png)](https://youtu.be/VC7fExJJQSY?si=oIAZU_b2sRWhu3de "[MatrixMCU]. Documentación de código con Doxygen.")
+1. Haga una copia del proyecto [blink_led](https://github.com/ieinDieUpm/blink_led/tree/hal_version) y renómbrelo a `blink_led_button`.
 
-## Authors
+2. Cree los ficheros `port_button.h` y `stm32f4_button.c` en las correspondientes carpetas de la parte portable del proyecto.
 
-* **Author 1** - email: [author@author.es](mailto:author@author.es)
-* **Author 2** - email: [author@author.es](mailto:author@author.es)
+3. Cree en `stm32f4_button.c` la función de inicialización `port_button_gpio_setup()` que configure una GPIO como entrada **haciendo uso de la HAL**, de forma similar a como se ha inicializado el LED en `port_led_gpio_setup()`.
 
-Write a brief descrition of your project **here**.
+    Tenga en cuenta que el botón de usuario B1 está conectado a la GPIO PC13 (GPIOC pin 13) del microcontrolador. El botón **es una entrada**, no una salida como LED.
 
-You can add a frontpage image **(ensure you are the owner)** here. e.g.: a picture of the HW setup, an oscilloscope capture, etc.
+4. Ponga en `port_button.h` los prototipos de las funciones públicas.
 
-**Images must be located in folder `docs/assets/imgs/` and can be included in the document awith the following Markdown format:**
+5. En el fichero `main.c`, incluya el fichero de cabecera `port_button.h` y llame a la función `port_button_gpio_setup()` desde la función `main()`. 
 
-```markdown
-![Alternative text](docs/assets/imgs/image.png)
-```
+6. Haga *polling* para leer el valor del botón usando `HAL_GPIO_ReadPin()`. Para ello llame a esta función dentro de otra: `port_button_get_status()` que devuelva un booleano con el estado del botón (0, no pulsado; o 1, pulsado). La función `port_button_get_status()` debe estar en `stm32f4_button.c`, y debe hacerse pública en `port_button.h`.
 
-It looks like this:
-![Alternative text](docs/assets/imgs/image.png)
+7. Tenga en cuenta que para aumentar el contador `c` el botón debe haberse pulsado (el botón baja a 0 V) y soltado (sube a 3.3V) **ambas condiciones**. Recuerde que el LED está apagado cuando `c` es 0.
 
-**Add a public link to video of your property with a demo and explanation of your project.**
+## References
 
-To add a link to a Youtube video you can use the following Markdown format:
-
-```markdown
-[![Alternative text](docs/assets/imgs/image2.png)](https://youtu.be/VEDEO_ID "Hover text.")
-```
-
-It looks like this:
-
-[![Link to Blink tutorial](docs/assets/imgs/image2.png)](https://www.youtube.com/watch?v=CcbgLVfCXrw& "Youtube video.")
-
-## Version 1
-
-Brief description of version 1.
-
-* To make a text bold, use the `**` symbol consecutively. For example: **Bold text**
-* To make a text italic, use the `*` symbol consecutively. For example: *Italic text*
-* To make a text both italic and bold, use the `***` symbol consecutively. For example: ***Italic and bold text***
-
-To add subsections, use the `#` symbol consecutively. For example:
-
-### Subsection 1
-
-Brief description of subsection 1.
-
-To add a list of items, use the `*` symbol consecutively. For example:
-
-* Item 1
-* Item 2
-* Item 3
-
-To add a list of numbered items, use the `1.` symbol consecutively. For example:
-
-1. Item 1
-2. Item 2
-3. Item 3
-
-To add a link to a webpage, use the following code:
-
-```markdown
-Link to [Google](https://www.google.com).
-```
-
-It looks like this: Link to [Google](https://www.google.com).
-
-You can add tables in the following way:
-
-| Column 1 | Column 2 | Column 3 |
-| -------- | -------- | -------- |
-| Value 1  | Value 2  | Value 3  |
-| Value 4  | Value 5  | Value 6  |
-
-To add a link to a `.c` or `.h` file, you can use the following code. You can add links to codes like this, with the simple use of the backtick symbol `:
-
-```markdown
-Link to the `interr.c`.
-```
-
-It looks like this: Link to the `interr.c`.
-
-You can also change the name of the link, or point to another `.html` file. These are links to `.html` files that are automatically generated with the code documentation when running Doxygen and are located in the `docs/html/` folder.
-
-```markdown
-Link to the [FSM of Version 1](fsm__button_8c.html).
-```
-
-It looks like this: Link to the [File with ISRs](interr_8c.html).
-
-## Version 2
-
-Brief description of version 2.
-
-## Version N
-
-Brief description of version N.
-
-## Information on project_template
-
-Template repository for C projects
-
-## File Organization
-
-The application file organization is as follows:
-
-| Main Folder Structure | Description                                                                                                   |
-| --------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `.github/`            | Configuration files for GitHub actions on `devel` and `main` branches (to do).                                |
-| `.vscode/`            | Configuration files for the Visual Studio Code IDE.                                                           |
-| `bin/`                | Executables for the application and the tests.                                                                |
-| `build/`              | CMake and make build files.                                                                                   |
-| `common/`             | C source and header files of your project. These files must be platform-agnostic.                             |
-| `port/`               | C source and header files of your project. These files are platform-specific.                                 |
-| `main.c`              | The main routine of your project. It must contain a C `main` function from which your program starts running. |
-| `test/`               | Test sources and required data for testing.                                                                   |
-| `CMakeLists.txt`      | CMake lists file. It specifies how to create the `Makefile` of the application using the `cmake` tool.        |
+- **[1]**: [Fundamentos teóricos de sistemas basados en microcontrolador STM32. Sistemas Digitales II, Sistemas Electrónicos](https://oa.upm.es/88460)
+- **[2]**: [Embedded Systems with ARM Cortex-M Microcontrollers in Assembly Language and C (Fourth Edition)](https://web.eece.maine.edu/~zhu/book/index.php) for explanations and examples of use of the ARM Cortex-M microcontrollers in C with CMSIS.
+- **[3]**: [Programming with STM32: Getting Started with the Nucleo Board and C/C++](https://ingenio.upm.es/primo-explore/fulldisplay?docid=34UPM_ALMA51126621660004212&context=L&vid=34UPM_VU1&lang=es_ES&search_scope=TAB1_SCOPE1&adaptor=Local%20Search%20Engine&tab=tab1&query=any,contains,Programming%20with%20STM32:%20Getting%20Started%20with%20the%20Nucleo%20Board%20and%20C%2FC%2B%2B&offset=0) for examples of use of the STM32 microcontrollers with the HAL of ST.
+- **[4]**: [The C Programming Language](https://ingenio.upm.es/primo-explore/fulldisplay?docid=34UPM_ALMA2151866130004212&context=L&vid=34UPM_VU1&lang=es_ES&search_scope=TAB1_SCOPE1&adaptor=Local%20Search%20Engine&isFrbr=true&tab=tab1&query=any,contains,C%20Programming%20Language)
+- **[5]**: [Nucleo Boards Programming with th STM32CubeIDE](https://www.elektor.com/products/nucleo-boards-programming-with-the-stm32cubeide) for examples of use of the STM32 microcontrollers with the STM32CubeIDE.
