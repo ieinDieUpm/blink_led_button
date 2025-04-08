@@ -1,4 +1,6 @@
-# Blink LED
+# Blink LED with Button push
+
+This project makes the LED LD2 of the Nucleo-STM32F446RE at a frequency of `c` Hz. The frequency is controlled by the push of the user button B1. Each time the button is pushed, the frequency (`c`) increases by 1. The LED is off when `c` equals 0.
 
 This project bases on the [MatrixMCU toolkit](https://github.com/sdg2DieUpm/MatrixMCU).
 
